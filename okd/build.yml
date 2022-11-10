@@ -1,13 +1,13 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: petclinic
+  name: petclinic-build
 labels:
   app.kubernetes.io/name: petclinic
   app.kubernetes.io/instance: petclinic-main
   app.kubernetes.io/part-of: petclinic
 objects:
-  - apiVersion: v1
+  - apiVersion: build.openshift.io/v1
     kind: BuildConfig
     metadata:
       name: petclinic
@@ -21,9 +21,9 @@ objects:
       source:
         type: Binary
       strategy:
-        dockerStrategy:
-          pullSecret:
-            name: artifactory
+        # dockerStrategy:
+        #   pullSecret:
+        #     name: artifactory
         type: Docker
       resources:
         requests:
