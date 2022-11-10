@@ -20,24 +20,24 @@ timestamps {
           }          
         }
         
-        container('oc') {
-          elcaOKDLib = elcaOKDLoader.load()
-          openshift.withCluster() {
-            openshift.withProject('prj-elcavn-training-devops-day') {
-              stage('Build Docker Image') {
-                fileOperations([
-                  fileCopyOperation(includes: 'target/*.war', targetLocation: './docker', flattenFiles: true)
-                ])
-                openshift.apply(
-                  openshift.process(
-                    readFile('./okd/build.yml')
-                  )
-                )
-                elcaOKDLib.buildAndWaitForCompletion('petclinic', '--from-dir ./docker')
-              }
-            }
-          }
-        }
+        // container('oc') {
+        //   elcaOKDLib = elcaOKDLoader.load()
+        //   openshift.withCluster() {
+        //     openshift.withProject('prj-elcavn-training-devops-day') {
+        //       stage('Build Docker Image') {
+        //         fileOperations([
+        //           fileCopyOperation(includes: 'target/*.war', targetLocation: './docker', flattenFiles: true)
+        //         ])
+        //         openshift.apply(
+        //           openshift.process(
+        //             readFile('./okd/build.yml')
+        //           )
+        //         )
+        //         elcaOKDLib.buildAndWaitForCompletion('petclinic', '--from-dir ./docker')
+        //       }
+        //     }
+        //   }
+        // }
       }
     }
   }
