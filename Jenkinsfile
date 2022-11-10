@@ -17,11 +17,6 @@ timestamps {
                 node(POD_LABEL) {
                     elcaStage.gitCheckout()
 
-                    stage("Setup env") {
-                        elcaEnvironment.setJava('java8')
-                        env.MAVEN_OPTS = "-Xmx1G"
-                    }
-
                     container('maven') {
                         stage('Build') {
                             withMaven() {
@@ -61,6 +56,14 @@ timestamps {
                             }
                         }
                     }
+
+                    container('maven') {
+                        stage('Run analysis on newly deployed SonarQube') {
+                          withMaven() {
+                            sh "mvn sonar:sonar -Dsonar.host.url=http://sonarqube-prj-elca-training-day.apps.okd.svc.elca.ch -Dsonar.login=admin -Dsonar.password=admin"
+                          }
+                        }
+                    }   
                 }
             }
         }
