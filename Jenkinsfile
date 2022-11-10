@@ -10,13 +10,17 @@ properties([
 ])
 timestamps {
     elcaPodTemplates.base {
-        elcaPodTemplates.maven([// vlh
-                // Docker image tag. Default is 'eclipse-temurin'. See https://hub.docker.com/_/maven?tab=tags
+        elcaPodTemplates.maven([
                 tag: '3.8-eclipse-temurin-8'
         ]) {
             elcaPodTemplates.oc {
                 node(POD_LABEL) {
                     elcaStage.gitCheckout()
+
+                    stage("Setup env") {
+                        elcaEnvironment.setJava('java8')
+                        env.MAVEN_OPTS = "-Xmx1G"
+                    }
 
                     container('maven') {
                         stage('Build') {
@@ -39,8 +43,7 @@ timestamps {
                                     ])
                                     openshift.apply(
                                             openshift.process(
-                                                    readFile('./okd/build.yml'),
-                                                    '-p', "APP_TAG=${params.APP_TAG}"
+                                                    readFile('./okd/build.yml'),'-p', "APP_TAG=${params.APP_TAG}"
                                             )
                                     )
                                     elcaOKDLib.buildAndWaitForCompletion('petclinic', '--from-dir ./docker')

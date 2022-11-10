@@ -1,16 +1,16 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: devops-final-exercise-day
+  name: petclinic
 labels:
-  app.kubernetes.io/name: devops-final-exercise-day
-  app.kubernetes.io/instance: devops-final-exercise-day-main
-  app.kubernetes.io/part-of: devops-final-exercise-day
+  app.kubernetes.io/name: petclinic
+  app.kubernetes.io/instance: petclinic-main
+  app.kubernetes.io/part-of: petclinic
 objects:
   - apiVersion: v1
     kind: BuildConfig
     metadata:
-      name: devops-final-exercise-day
+      name: petclinic
     spec:
       output:
         pushSecret:
