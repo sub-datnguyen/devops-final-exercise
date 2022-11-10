@@ -4,7 +4,7 @@ metadata:
   name: devops-final-exercise-day
 labels:
   app.kubernetes.io/name: devops-final-exercise-day
-  app.kubernetes.io/instance: devops-final-exercise-day-master
+  app.kubernetes.io/instance: devops-final-exercise-day-main
   app.kubernetes.io/part-of: devops-final-exercise-day
 objects:
   - apiVersion: v1
@@ -17,15 +17,20 @@ objects:
           name: artifactory
         to:
           kind: DockerImage
-          name: prj-elcavn-training-docker.artifactory.svc.elca.ch/devops-final-exercise-day:lasted
+          name: prj-elcavn-training-docker.artifactory.svc.elca.ch/devops-final-exercise-day:${APP_TAG}
       source:
         type: Binary
       strategy:
+        dockerStrategy:
+          pullSecret:
+            name: artifactory
         type: Docker
       resources:
         requests:
           cpu: "250m"
-          memory: "2Gi"
+          memory: "1Gi"
         limits:
           cpu: "4"
-          memory: "4Gi"
+          memory: "2Gi"
+parameters:
+  - name: APP_TAG
