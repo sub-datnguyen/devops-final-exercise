@@ -48,10 +48,19 @@ timestamps {
                                     )
                                     elcaOKDLib.buildAndWaitForCompletion('petclinic', '--from-dir ./docker')
                                 }
+
+                                stage('Deploy Petclinic') {
+                                  openshift.apply(
+                                    openshift.process(
+                                      readFile('./okd/deploy.yml'),
+                                      '-p', "CONTAINER_ID=${new Date().format("yyyyMMddHHmmssS", TimeZone.getTimeZone('UTC'))}", "APP_TAG=${params.APP_TAG}"
+                                    )
+                                  )
+                                  elcaOKDLib.waitForDeploymentCompletion('petclinic')
+                                }
                             }
                         }
                     }
-
                 }
             }
         }
