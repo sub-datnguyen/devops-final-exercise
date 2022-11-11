@@ -34,33 +34,33 @@ objects:
                 requests:
                   cpu: 100m
                   memory: 2Gi  
-              startupProbe:
-                exec:
-                  command:
-                    - /bin/bash
-                    - '-c'
-                    - curl -s localhost:9000/api/system/status | grep '"status":"UP"'
-                periodSeconds: 10
-                failureThreshold: 25
-                successThreshold: 1
-              readinessProbe:
-                exec:
-                  command:
-                    - /bin/bash
-                    - '-c'
-                    - curl -s localhost:9000/api/system/status | grep '"status":"UP"'
-                periodSeconds: 10
-                failureThreshold: 3
-                successThreshold: 1
-              livenessProbe:
-                exec:
-                  command:
-                    - /bin/bash
-                    - '-c'
-                    - curl -s localhost:9000/api/system/status | grep '"status":"UP"'
-                periodSeconds: 10
-                failureThreshold: 10
-                successThreshold: 1           
+              # startupProbe:
+              #   exec:
+              #     command:
+              #       - /bin/bash
+              #       - '-c'
+              #       - curl -s localhost:9000/api/system/status | grep '"status":"UP"'
+              #   periodSeconds: 10
+              #   failureThreshold: 25
+              #   successThreshold: 1
+              # readinessProbe:
+              #   exec:
+              #     command:
+              #       - /bin/bash
+              #       - '-c'
+              #       - curl -s localhost:9000/api/system/status | grep '"status":"UP"'
+              #   periodSeconds: 10
+              #   failureThreshold: 3
+              #   successThreshold: 1
+              # livenessProbe:
+              #   exec:
+              #     command:
+              #       - /bin/bash
+              #       - '-c'
+              #       - curl -s localhost:9000/api/system/status | grep '"status":"UP"'
+              #   periodSeconds: 10
+              #   failureThreshold: 10
+              #   successThreshold: 1           
   - apiVersion: v1
     kind: Service
     metadata:

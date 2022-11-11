@@ -21,9 +21,6 @@ objects:
       source:
         type: Binary
       strategy:
-        # dockerStrategy:
-        #   pullSecret:
-        #     name: artifactory
         type: Docker
       resources:
         requests:
