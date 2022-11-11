@@ -57,13 +57,13 @@ timestamps {
                         }
                     }
 
-                    container('maven') {
-                        stage('Run analysis on newly deployed SonarQube') {
-                          withMaven() {
-                            sh "mvn sonar:sonar -Dsonar.host.url=http://sonarqube-prj-elca-training-day.apps.okd.svc.elca.ch -Dsonar.login=admin -Dsonar.password=admin"
-                          }
-                        }
-                    }   
+                    // container('maven') {
+                    //     stage('Run analysis on newly deployed SonarQube') {
+                    //       withMaven() {
+                    //         sh "mvn sonar:sonar -Dsonar.host.url=http://sonarqube-prj-elca-training-day.apps.okd.svc.elca.ch -Dsonar.login=admin -Dsonar.password=admin"
+                    //       }
+                    //     }
+                    // }   
                 }
             }
         }
