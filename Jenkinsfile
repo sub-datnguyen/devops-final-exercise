@@ -18,14 +18,6 @@ timeout(time: 1, unit: 'HOURS') {
             stageComplie()
 
             stageBuildAndDeploy()
-
-            container('maven') {
-              stage('Run analysis on newly deployed') {
-                withMaven() {
-                  sh "mvn sonar:sonar -Dsonar.host.url=http://sonarqube-prj-elcavn-training-day.apps.okd.svc.elca.ch -Dsonar.login=admin -Dsonar.password=adm"
-                }
-              }
-            }
           }
         }
       }
@@ -39,9 +31,9 @@ def stageComplie() {
     stage('Build') {
       withMaven() {
         if (params.SKIP_TEST) {
-          sh "mvn clean install"
-        } else {
           sh "mvn clean install -DskipTests"
+        } else {
+          sh "mvn clean install"
         }
       }
     }
@@ -49,6 +41,8 @@ def stageComplie() {
       elcaSonarqube.analyzeWithMaven(
           [
               'sonar.projectKey': 'prj_elcavn-tech-training:devops-dotnet5',
+              'sonar.projectName': 'prj_elcavn-tech-training',
+              'sonar.ldap.project': 'prj_elcavn-tech-training',
           ]
       )
     }
