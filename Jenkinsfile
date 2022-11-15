@@ -48,7 +48,7 @@ def stageComplie() {
     stage('Run SonarQube Analysis') {
       elcaSonarqube.analyzeWithMaven(
           [
-              'sonar.projectKey': 'prj_elcavn-tech-training:devops-dotnet2',
+              'sonar.projectKey': 'prj_elcavn-tech-training:devops-dotnet5',
           ]
       )
     }
