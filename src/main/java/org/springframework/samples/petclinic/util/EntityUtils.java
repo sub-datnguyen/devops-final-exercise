@@ -43,6 +43,8 @@ public abstract class EntityUtils {
      */
     public static <T extends BaseEntity> T getById(Collection<T> entities, Class<T> entityClass, int entityId)
         throws ObjectRetrievalFailureException {
+        T e = entities.stream().findAny().get();
+        System.out.println(e.getId());
         for (T entity : entities) {
             if (entity.getId() == entityId && entityClass.isInstance(entity)) {
                 return entity;
@@ -50,5 +52,4 @@ public abstract class EntityUtils {
         }
         throw new ObjectRetrievalFailureException(entityClass, entityId);
     }
-
 }
